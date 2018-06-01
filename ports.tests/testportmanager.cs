@@ -6,19 +6,24 @@ namespace Tests
     public class PortManagerTests
     {
 
+        // Port manager requirements:
+        // accept client connections as they come in
+        // and store them in a list. 
+
+
         private PortManager put;
 
         [SetUp]
         public void Setup()
         {
-            
+            //start with no clients. 
+            put = new PortManager();  //PUT = product under test
         }
 
         [Test]
         public void TestConnectClient()
         {
-            //start with no clients. 
-            put = new PortManager();  //PUT = product under test
+            
             Assert.AreEqual(0, put.clients.Count);
 
             //create a client and connect.             
@@ -38,6 +43,8 @@ namespace Tests
             //verify there's now 1 client. 
             Assert.AreEqual(1, put.clients.Count);
 
+            
         }
+        
     }
 }
