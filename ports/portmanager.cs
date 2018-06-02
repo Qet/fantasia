@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -36,40 +37,42 @@ namespace ports {
             }
         }
 
-        private void echoData(){
-            for (var c in clients){
-                byte [] 
-                NetworkStream stream = c.GetStream()
-                stream.Read()
+        private void echoData() {
+            foreach (var c in clients) {
+                if (c.Connected) {
+
+                    Byte[] bytes = new Byte[200];
+                    NetworkStream stream = c.GetStream();
+
+                    if (stream.DataAvailable) {
+                        int i = stream.Read(bytes, 0, bytes.Length);
+                        String data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                        Console.WriteLine("Received: {0}", data);
+
+                        data = data.ToUpper();
+                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+                        stream.Write(msg, 0, msg.Length);
+                        Console.WriteLine("Sent: {0}", data);
+                    }
+                }
             }
+        }
 
-//  NetworkStream stream = client.GetStream();
-
-            //         int i;
-
-            //         // Loop to receive all the data sent by the client.
-            //         while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-            //         {
-            //             // Translate data bytes to a ASCII string.
-            //             data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-            //             Console.WriteLine("Received: {0}", data);
-
-            //             // Process the data sent by the client.
-            //             data = data.ToUpper();
-
-            //             byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-
-            //             // Send back a response.
-            //             stream.Write(msg, 0, msg.Length);
-            //             Console.WriteLine("Sent: {0}", data);
-            //         }
-
-
+        private int numClientsConnected() {
+            int i = 0;
+            foreach (var c in clients) {
+                if (c.Connected) {
+                    i++;
+                }
+            }
+            return i;
         }
 
         public void runOnce() {
             makePendingConnections();
             cleanUpDisconnectedClients();
+            echoData();
+            Console.WriteLine("Num clients connected: {0}", numClientsConnected());
         }
 
     }
