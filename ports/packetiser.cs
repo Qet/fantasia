@@ -10,7 +10,7 @@ class Packetiser : IBytesReceived{
 
     private IPacketReceived packetReceived;
 
-    public Packetiser(int portID, IPacketReceived packetReceived){
+    public Packetiser(IPacketReceived packetReceived){
         this.packetReceived = packetReceived;
     }
 
