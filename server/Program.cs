@@ -12,7 +12,7 @@ namespace server
         static void Main(string[] args)
         {
             
-            PortManager pm = new PortManager();
+            SocketManager pm = new SocketManager();
             while(true){
                 pm.runOnce();
                 System.Threading.Thread.Sleep(1000);

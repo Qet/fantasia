@@ -4,41 +4,60 @@ using System.Net;
 using System.Net.Sockets;
 
 namespace ports {
-    public class PortManager {
-        public PortManager() {
-            clients = new List<TcpClient>();
+    class SocketManager {
+        public SocketManager(ICommand commandInterface) {
+            sockets = new List<TCPSocket>();
+            packetisers = new List<Packetiser>();
             listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 54540);
             listener.Start();
+            portID_Counter = 0;
+            this.commands = commandInterface;
+            codec = new Codec(commands);
         }
 
-        public List<TcpClient> clients { get; private set; }
+        public List<TCPSocket> sockets { get; private set; }
+        public List<Packetiser> packetisers {get; private set;}
 
+        private ICommand commands;
+        private Codec codec;
         private TcpListener listener;
+        private int portID_Counter;
 
         private void cleanUpDisconnectedClients() {
 
-            List<TcpClient> toRemove = new List<TcpClient>();
+            List<TCPSocket> toRemove = new List<TCPSocket>();
 
-            foreach (var c in clients) {
-                if (!c.Connected) {
+            foreach (var c in sockets) {
+                if (!c.client.Connected) {
                     toRemove.Add(c);
                 }
             }
 
             foreach (var r in toRemove) {
-                clients.Remove(r);
+                sockets.Remove(r);
             }
+        }
+
+        private void createNewStack(TcpClient client, int portID){
+            Packetiser newPacketiser = new Packetiser(codec);
+            TCPSocket newSocket = new TCPSocket(portID, listener.AcceptTcpClient(), newPacketiser);
+
+            packetisers.Add(newPacketiser);
+            sockets.Add(newSocket);
         }
 
         private void makePendingConnections() {
-            // make any pending connections.      
             if (listener.Pending()) {
-                clients.Add(listener.AcceptTcpClient());
+                createNewStack(listener.AcceptTcpClient(), getUniquePortID());
             }
         }
 
+        private int getUniquePortID(){
+            return portID_Counter++;
+        }
+
         private void echoData() {
-            foreach (var c in clients) {
+            foreach (var c in sockets) {
                 if (c.Connected) {
 
                     Byte[] bytes = new Byte[200];
@@ -60,7 +79,7 @@ namespace ports {
 
         private int numClientsConnected() {
             int i = 0;
-            foreach (var c in clients) {
+            foreach (var c in sockets) {
                 if (c.Connected) {
                     i++;
                 }

@@ -12,13 +12,13 @@ namespace Tests
         // and store them in a list. 
 
 
-        private PortManager put;
+        private SocketManager put;
 
         [SetUp]
         public void Setup()
         {
             //start with no clients. 
-            put = new PortManager();  //PUT = product under test
+            put = new SocketManager();  //PUT = product under test
         }
 
         [Test]
