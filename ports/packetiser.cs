@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;  
 
-class Packetiser : IBytesReceived{
+public class Packetiser : IBytesReceived{
 
     private IPacketReceived packetReceived;
     
@@ -21,13 +21,7 @@ class Packetiser : IBytesReceived{
         
         if (data.Contains(delimeter.ToString())){
             string[] spl = data.Split(new char[] {delimeter} );
+            packetReceived.handlePacket(portID, spl);
         }
-
-        //call packet received when there's a packet. 
     }
-
-    private void sendBuffer(){
-        packetReceived.handlePacket(portID)
-    }
-
 }

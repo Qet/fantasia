@@ -1,7 +1,7 @@
 using System;
 using System.Net.Sockets;
 
-class TCPSocket : ITCPSocket {
+public class TCPSocket : ITCPSocket {
     
     public TcpClient client {get; private set;}
     

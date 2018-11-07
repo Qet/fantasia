@@ -1,4 +1,4 @@
-interface ITCPSocket{
+public interface ITCPSocket{
     void run();
     
 }

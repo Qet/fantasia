@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 
 namespace ports {
-    class SocketManager {
+    public class SocketManager {
         public SocketManager(ICommand commandInterface) {
             sockets = new List<TCPSocket>();
             packetisers = new List<Packetiser>();
