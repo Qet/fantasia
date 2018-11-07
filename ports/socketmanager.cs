@@ -40,7 +40,7 @@ namespace ports {
 
         private void createNewStack(TcpClient client, int portID){
             Packetiser newPacketiser = new Packetiser(codec);
-            TCPSocket newSocket = new TCPSocket(portID, listener.AcceptTcpClient(), newPacketiser);
+            TCPSocket newSocket = new TCPSocket(portID, client, newPacketiser);
 
             packetisers.Add(newPacketiser);
             sockets.Add(newSocket);
