@@ -21,7 +21,9 @@ public class Packetiser : IBytesReceived{
         
         if (data.Contains(delimeter.ToString())){
             string[] spl = data.Split(new char[] {delimeter} );
-            packetReceived.handlePacket(portID, spl);
+            foreach (string s in spl){
+                packetReceived.handlePacket(portID, s);
+            }
         }
     }
 }

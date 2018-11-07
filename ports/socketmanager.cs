@@ -90,7 +90,7 @@ namespace ports {
         public void runOnce() {
             makePendingConnections();
             cleanUpDisconnectedClients();
-            echoData();
+            //echoData();
             Console.WriteLine("Num clients connected: {0}", sockets.Count);
         }
 
