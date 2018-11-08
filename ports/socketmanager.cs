@@ -15,6 +15,10 @@ namespace ports {
             codec = new Codec(commands);
         }
 
+        ~SocketManager(){
+            listener.Stop();
+        }
+
         public List<TCPSocket> sockets { get; private set; }
         public List<Packetiser> packetisers {get; private set;}
 

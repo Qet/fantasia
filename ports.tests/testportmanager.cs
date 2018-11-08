@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Net.Sockets;
 using ports;
+using System;
 
 namespace Tests
 {
@@ -30,7 +31,10 @@ namespace Tests
         [TearDown]
         public void TearDown(){
             client.Close();
-            client.Dispose();
+            client = null;   
+            put = null;
+            GC.Collect(); //Ensure that the destructor is called on the PUT to close the TCP listener. 
+                          //Otherwise we'll get an error on subsequent tests. 
         }
 
         [Test]
