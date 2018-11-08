@@ -23,6 +23,13 @@ namespace ports {
         private TcpListener listener;
         private int portID_Counter;
 
+        public void runOnce() {
+            makePendingConnections();
+            cleanUpDisconnectedClients();
+            runSockets();
+            Console.WriteLine("Num clients connected: {0}", sockets.Count);
+        }
+
         private void cleanUpDisconnectedClients() {
 
             List<TCPSocket> socketsToRemove = new List<TCPSocket>();
@@ -69,13 +76,6 @@ namespace ports {
             foreach (var s in sockets){
                 s.run();
             }
-        }
-
-        public void runOnce() {
-            makePendingConnections();
-            cleanUpDisconnectedClients();
-            runSockets();
-            Console.WriteLine("Num clients connected: {0}", sockets.Count);
         }
 
     }
