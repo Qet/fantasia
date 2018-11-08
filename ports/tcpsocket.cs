@@ -18,8 +18,6 @@ public class TCPSocket : ITCPSocket {
         readBytes();
     }
 
-    
-
     private void readBytes() {
         if (client.Connected) {
             Byte[] bytes = new Byte[200];
