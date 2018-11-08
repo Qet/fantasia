@@ -30,6 +30,7 @@ namespace Tests
         {
             
             Assert.AreEqual(0, put.sockets.Count);
+            Assert.AreEqual(0, put.packetisers.Count);
 
             //create a client and connect.             
             TcpClient c = new TcpClient();
@@ -45,9 +46,9 @@ namespace Tests
             //verify that we have connected
             Assert.IsTrue(c.Connected);
 
-            //verify there's now 1 client. 
+            //verify there's now 1 client and packetiser
             Assert.AreEqual(1, put.sockets.Count);
-
+            Assert.AreEqual(1, put.packetisers.Count);
             
         }
         

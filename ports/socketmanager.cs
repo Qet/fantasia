@@ -25,17 +25,26 @@ namespace ports {
 
         private void cleanUpDisconnectedClients() {
 
-            List<TCPSocket> toRemove = new List<TCPSocket>();
+            List<TCPSocket> socketsToRemove = new List<TCPSocket>();
 
             foreach (var c in sockets) {
-                if (!c.client.Connected) {
-                    toRemove.Add(c);
+                
+                if (c.client.Client.Poll(1, SelectMode.SelectRead)
+                 && !c.client.GetStream().DataAvailable) { 
+                     // Check if connection is closed: When using SelectRead, Poll() will return true only if:
+                     // (1) We are listening; which we are not. 
+                     // (2) New data is available; so we check networkStream.DataAvailable AFTER calling Poll(), 
+                     //     because it could change during Poll()
+                     // (3) The connection was indeed closed. 
+                    Console.WriteLine("Client disconnected");
+                    c.client.Close();
+                    socketsToRemove.Add(c);
                 }
+            } 
+            foreach (var c in socketsToRemove){
+                sockets.Remove(c);
             }
 
-            foreach (var r in toRemove) {
-                sockets.Remove(r);
-            }
         }
 
         private void createNewStack(TcpClient client, int portID){
@@ -56,41 +65,16 @@ namespace ports {
             return portID_Counter++;
         }
 
-        // private void echoData() {
-        //     foreach (var c in sockets) {
-        //         if (c.Connected) {
-
-        //             Byte[] bytes = new Byte[200];
-        //             NetworkStream stream = c.GetStream();
-
-        //             if (stream.DataAvailable) {
-        //                 int i = stream.Read(bytes, 0, bytes.Length);
-        //                 String data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-        //                 Console.WriteLine("Received: {0}", data);
-
-        //                 data = data.ToUpper();
-        //                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-        //                 stream.Write(msg, 0, msg.Length);
-        //                 Console.WriteLine("Sent: {0}", data);
-        //             }
-        //         }
-        //     }
-        // }
-
-        // private int numClientsConnected() {
-        //     int i = 0;
-        //     foreach (var c in sockets) {
-        //         if (c.Connected) {
-        //             i++;
-        //         }
-        //     }
-        //     return i;
-        // }
+        private void runSockets(){
+            foreach (var s in sockets){
+                s.run();
+            }
+        }
 
         public void runOnce() {
             makePendingConnections();
             cleanUpDisconnectedClients();
-            //echoData();
+            runSockets();
             Console.WriteLine("Num clients connected: {0}", sockets.Count);
         }
 
