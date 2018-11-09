@@ -9,18 +9,20 @@ public class Packetiser : IBytesReceived{
     
     private Dictionary<int, MemoryStream> buffers;
 
-    public Packetiser(IPacketReceived packetReceived){
+    private string delimeter;
+
+    public Packetiser(IPacketReceived packetReceived, string delimeter){
         this.packetReceived = packetReceived;
         buffers = new Dictionary<int, MemoryStream>();
+        this.delimeter = delimeter;
     }
 
     public void bytesReceived(int portID, Byte[] bytes){
         //buffer bytes
         string data = Encoding.ASCII.GetString(bytes);
-        char delimeter = '\r';
         
-        if (data.Contains(delimeter.ToString())){
-            string[] spl = data.Split(new char[] {delimeter} );
+        if (data.Contains(delimeter)){
+            string[] spl = data.Split(new string[] {delimeter}, StringSplitOptions.RemoveEmptyEntries);
             foreach (string s in spl){
                 packetReceived.handlePacket(portID, s);
             }

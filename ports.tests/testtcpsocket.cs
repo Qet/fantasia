@@ -44,11 +44,13 @@ namespace Tests
         [Test]
         public void TestConstruct()
         {
+            //send the tcp socket some data
             string testString = "this is a test";
             byte[] bytes = Encoding.ASCII.GetBytes(testString);
             client.GetStream().Write(bytes, 0, bytes.Length);
             put.run();
 
+            //Make sure that the data gets received on the other end. 
             Assert.AreEqual(testString, lastReceivedString);
 
         }
