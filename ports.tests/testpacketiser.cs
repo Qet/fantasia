@@ -52,11 +52,14 @@ namespace Tests
             put = new Packetiser(this, delimeter);
             put.bytesReceived(portID, inputBytes);
 
-            Assert.AreEqual(portID, lastRecvPortID);
-            Assert.AreEqual()
+            //Check we got the right number of packets. 
+            Assert.AreEqual(testStrings.Length, recvdMiniPackets.Count);
 
-
-
+            //Check that the content of the packets is correcr. 
+            for(int i=0;i<recvdMiniPackets.Count;i++){
+                Assert.AreEqual(portID, recvdMiniPackets[i].portID);
+                Assert.AreEqual(testStrings[i], recvdMiniPackets[i].packet);
+            }
         }
         
     }
