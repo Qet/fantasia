@@ -4,33 +4,34 @@ using System.Net.Sockets;
 using System.Net;
 using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Tests
 {
+    public struct MiniPacket{
+        public MiniPacket(int portID, string packet){
+            this.portID = portID;
+            this.packet = packet;
+        }
+        public int portID { get; private set;}
+        public string packet { get; private set;}
+    }
 
     public class PacketiserTests : IPacketReceived
     {
 
-        struct MiniPacket{
-            public int portID;
-            public string packet;
-        }
         public void handlePacket(int portID, string packet){
-            MiniPacket m;
-            
+            recvdMiniPackets.Add(new MiniPacket(portID, packet));
         }
 
         private Packetiser put;
         
-        private List<int> r;
-        private string lastRecvPacket;
-
+        private List<MiniPacket> recvdMiniPackets;
 
         [SetUp]
         public void Setup()
         {
-            lastRecvPacket = "";
-            lastRecvPortID = 0;
+            recvdMiniPackets = new List<MiniPacket>();
         }
 
         [TearDown]
