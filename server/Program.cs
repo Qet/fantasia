@@ -7,12 +7,16 @@ using ports;
 
 namespace server
 {
+    public class DummyCommandHandler : ICommand{
+        public void move(Directions directions){}
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            
-            PortManager pm = new PortManager();
+            DummyCommandHandler commandHandler = new DummyCommandHandler();
+            SocketManager pm = new SocketManager(commandHandler);
             while(true){
                 pm.runOnce();
                 System.Threading.Thread.Sleep(1000);

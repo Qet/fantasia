@@ -7,12 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server", "server\server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ports", "ports\ports.csproj", "{08ADBC18-5054-4869-BCBC-48EF2F30E219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{ED8A4B5A-855D-48F5-A397-C94C0E619F5D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test2", "test2\test2.csproj", "{ECD288C3-AC9A-4B8A-8FF1-15DA385C1B2B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test3", "test3\test3.csproj", "{F8744099-4C2C-45DB-816E-A3F8FD913FF0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ports.tests", "ports.tests\ports.tests.csproj", "{8C67F062-72BA-4176-A0D0-428331069A91}"
 EndProject
 Global

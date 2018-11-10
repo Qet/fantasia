@@ -1,17 +1,31 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;  
 
-class Packetiser : IBytesReceived{
+public class Packetiser : IBytesReceived{
+
+    private IPacketReceived packetReceived;
+    
+    private Dictionary<int, MemoryStream> buffers;
+
+    private string delimeter;
+
+    public Packetiser(IPacketReceived packetReceived, string delimeter){
+        this.packetReceived = packetReceived;
+        buffers = new Dictionary<int, MemoryStream>();
+        this.delimeter = delimeter;
+    }
 
     public void bytesReceived(int portID, Byte[] bytes){
         //buffer bytes
-
-        //call packet received when there's a packet. 
+        string data = Encoding.ASCII.GetString(bytes);
+        
+        if (data.Contains(delimeter)){
+            string[] spl = data.Split(new string[] {delimeter}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string s in spl){
+                packetReceived.handlePacket(portID, s);
+            }
+        }
     }
-
-    private IPacketReceived packetReceived;
-
-    public Packetiser(IPacketReceived packetReceived){
-        this.packetReceived = packetReceived;
-    }
-
 }

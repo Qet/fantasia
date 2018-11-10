@@ -1,4 +1,4 @@
 using System;
-interface IPacketReceived{
-    void handlePacket(int portID, Byte[] bytes);
+public interface IPacketReceived{
+    void handlePacket(int portID, string packet);
 }
