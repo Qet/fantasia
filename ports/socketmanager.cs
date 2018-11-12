@@ -59,7 +59,7 @@ namespace ports {
         }
 
         private void createNewStack(TcpClient client, int portID){
-            Packetiser newPacketiser = new Packetiser(codec, "/r");
+            Packetiser newPacketiser = new Packetiser(codec, "\r\n");
             TCPSocket newSocket = new TCPSocket(portID, client, newPacketiser);
 
             packetisers.Add(newPacketiser);
