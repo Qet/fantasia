@@ -1,6 +1,6 @@
 using System;
 
-class Codec : IPacketReceived{
+public class Codec : IPacketReceived{
 
     public void handlePacket(int portID, string packet){
         

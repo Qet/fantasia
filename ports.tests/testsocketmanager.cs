@@ -6,7 +6,7 @@ using System;
 namespace Tests
 {
 
-    public class PortManagerTests : ICommand
+    public class SocketManagerTests : ICommand
     {
         public void move(Directions dir){
  
