@@ -1,7 +1,7 @@
 language: csharp
 solution: fantasia.sln
 install:
-  - nuget restore Qet/fastasia.sln
+  - nuget restore Qet/fantasia.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release fantasia.sln
