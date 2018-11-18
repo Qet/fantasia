@@ -1,0 +1,57 @@
+Overall concept:
+- text-based MUD designed with phone usablity from the start
+
+things to include:-
+- multiple players in the same world (MMO)
+- randomly generated item system
+- pay for content access, or pay for cosmetic bonuses, not pay to win. 
+- content creators get a cut from the profits of their content. 
+- open source - basic game engine, closed source content, open to content contributors only. 
+- auction house where host takes a cut
+- PvP, because it keeps people playing
+- focus on chat - groups / noticeboards, etc. chat keeps the social aspect strong, keeps people coming back
+- community moderation - ban cheaters, hackers and spammers. perhaps offer payment with ingame currency or ingame rewards. 
+- currency. like d2jsp, a currency used for buying and selling items. 
+- ability to look at others, see what items / skills / spells others are using. 
+- not much focus on single player storyline or quests, as they are too costly to produce and stop being interesting
+  very quickly once you've done them. 
+
+
+
+1. Server handles all connections and data to/from those
+for each connection that the server manages, it produces Commands. 
+
+human  --input action--> device (phone / computer / terminal) 
+- handled by the client (which will vary depending on device.)
+- sends data down an ethernet link to the server (currently TCP)
+
+server :-
+- reads data from ports
+- processes up the stack 
+- produces a command. 
+- sends the command to the world to handled
+
+world :-
+- manages a collection of stuff that makes up the world
+- receives input commands from the server
+- applies those commands appropriately to the world/players/users within it. 
+
+stuff managed by the world:
+- users
+- NPCs
+- items
+
+
+
+
+
+2. client
+just use telnet for the present. 
+
+
+
+3. targets
+iphone. 
+android
+PC
+
