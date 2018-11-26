@@ -15,7 +15,12 @@ things to include:-
 - ability to look at others, see what items / skills / spells others are using. 
 - not much focus on single player storyline or quests, as they are too costly to produce and stop being interesting
   very quickly once you've done them. 
-
+- ability for people to observe the world, or observe others playing pvp. generate some spectator interest. 
+  even if all you saw was some text and an HP bar going down, before the guy you hate gets killed, that would still be thrilling
+- pvp could even have a penalty for dying. a loss of currency, an ear, items, etc. 
+- minimap so you have some visibility of nearby rooms, mobs, players, etc. 
+- roguelike (inspiration) ??? 
+- enable and encourage teamplay - coop to kill mobs / bosses. 
 
 
 1. Server handles all connections and data to/from those
@@ -37,9 +42,9 @@ world :-
 - applies those commands appropriately to the world/players/users within it. 
 
 stuff managed by the world:
-- users
-- NPCs
-- items
+- inanimate objects (items)
+- animate objects (players/users, npcs, mobs)
+- rooms
 
 
 
