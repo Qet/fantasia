@@ -26,7 +26,6 @@ namespace Tests
         }
 
         public Codec put;
-        private const int portID = 123;
 
         private List<Directions> recvdMoves;
 
@@ -53,7 +52,7 @@ namespace Tests
 
             // Hit the codec on the interface
             foreach (PacketMapping p in expectedPackets){
-                put.handlePacket(portID, p.packet);
+                put.handlePacket(p.packet);
             }
 
             // Check results

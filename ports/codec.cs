@@ -2,7 +2,7 @@ using System;
 
 public class Codec : IPacketReceived{
 
-    public void handlePacket(int portID, string packet){
+    public void handlePacket(string packet){
         
         if (packet == "move north"){
             commands.move(Directions.North);

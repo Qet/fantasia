@@ -5,11 +5,9 @@ public class TCPSocket : ITCPSocket {
     
     public TcpClient client {get; private set;}
     
-    private int portID;
     private IBytesReceived bytesReceived;
 
-    public TCPSocket(int portID, TcpClient client, IBytesReceived bytesReceived) {
-        this.portID = portID;
+    public TCPSocket(TcpClient client, IBytesReceived bytesReceived) {
         this.client = client;
         this.bytesReceived = bytesReceived;
     }
@@ -27,7 +25,7 @@ public class TCPSocket : ITCPSocket {
                 int i = stream.Read(bytes, 0, bytes.Length);
                 if (i > 0){
                     Array.Resize<Byte>(ref bytes, i);
-                    bytesReceived.bytesReceived(portID, bytes);
+                    bytesReceived.bytesReceived(bytes);
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace Tests
 
     public class TcpSocketTests : IBytesReceived
     {
-        public void bytesReceived(int portID, byte[] bytes){
+        public void bytesReceived(byte[] bytes){
             lastReceivedString = Encoding.ASCII.GetString(bytes);
         }
 
@@ -30,7 +30,7 @@ namespace Tests
             listener.Start();
             client = new TcpClient("127.0.0.1", 54540);
             acceptedClient = listener.AcceptTcpClient();
-            put = new TCPSocket(0, acceptedClient, this);   
+            put = new TCPSocket(acceptedClient, this);   
             
         }
 

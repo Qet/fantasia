@@ -17,14 +17,14 @@ public class Packetiser : IBytesReceived{
         this.delimeter = delimeter;
     }
 
-    public void bytesReceived(int portID, Byte[] bytes){
+    public void bytesReceived(Byte[] bytes){
         //buffer bytes
         string data = Encoding.ASCII.GetString(bytes);
         
         if (data.Contains(delimeter)){
             string[] spl = data.Split(new string[] {delimeter}, StringSplitOptions.RemoveEmptyEntries);
             foreach (string s in spl){
-                packetReceived.handlePacket(portID, s);
+                packetReceived.handlePacket(s);
             }
         }
     }

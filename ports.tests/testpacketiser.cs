@@ -9,19 +9,17 @@ using System.Collections.Generic;
 namespace Tests
 {
     public struct MiniPacket{
-        public MiniPacket(int portID, string packet){
-            this.portID = portID;
+        public MiniPacket(string packet){
             this.packet = packet;
         }
-        public int portID { get; private set;}
         public string packet { get; private set;}
     }
 
     public class PacketiserTests : IPacketReceived
     {
 
-        public void handlePacket(int portID, string packet){
-            recvdMiniPackets.Add(new MiniPacket(portID, packet));
+        public void handlePacket(string packet){
+            recvdMiniPackets.Add(new MiniPacket(packet));
         }
 
         private Packetiser put;
@@ -48,16 +46,14 @@ namespace Tests
             string[] testStrings = {"some test string", "another test string", "123 anything without delimeter in it"};
             string inputString = String.Join(delimeter, testStrings);
             byte[] inputBytes = Encoding.ASCII.GetBytes(inputString);
-            int portID = 123;
             put = new Packetiser(this, delimeter);
-            put.bytesReceived(portID, inputBytes);
+            put.bytesReceived(inputBytes);
 
             //Check we got the right number of packets. 
             Assert.AreEqual(testStrings.Length, recvdMiniPackets.Count);
 
             //Check that the content of the packets is correcr. 
             for(int i=0;i<recvdMiniPackets.Count;i++){
-                Assert.AreEqual(portID, recvdMiniPackets[i].portID);
                 Assert.AreEqual(testStrings[i], recvdMiniPackets[i].packet);
             }
         }
