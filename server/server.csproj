@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ports\ports.csproj" />
+    <ProjectReference Include="..\interfaces\interfaces.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
