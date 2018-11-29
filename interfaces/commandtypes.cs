@@ -3,4 +3,4 @@ public enum Directions {
     South,
     East,
     West,
-};
+}
