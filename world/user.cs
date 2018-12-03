@@ -2,9 +2,9 @@
 
 namespace world
 {
-    public class User
+    public class User : ICommand
     { 
-        public void blah(Directions directions){
+        public void move(Directions dir){
             
         }
 
