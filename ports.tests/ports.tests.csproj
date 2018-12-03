@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ports\ports.csproj" />
     <ProjectReference Include="..\interfaces\interfaces.csproj" />
+    <ProjectReference Include="..\world\world.csproj" />
   </ItemGroup>
 
 </Project>

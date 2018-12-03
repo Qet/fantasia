@@ -2,14 +2,19 @@ using NUnit.Framework;
 using System.Net.Sockets;
 using ports;
 using System;
+using world;
 
 namespace Tests
 {
 
-    public class SocketManagerTests : ICommand
+    public class DummyUser : ICommand{
+        public void move(Directions directions){} 
+    }
+    public class SocketManagerTests : IRealm
     {
-        public void move(Directions dir){
- 
+        public ICommand AddUser()
+        {
+            return new DummyUser();
         }
 
         // Port manager requirements:

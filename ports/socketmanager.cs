@@ -5,14 +5,14 @@ using System.Net.Sockets;
 
 namespace ports {
     public class SocketManager {
-        public SocketManager(ICommand commandInterface) {
+        public SocketManager(IRealm realmInterface) {
             sockets = new List<TCPSocket>();
             packetisers = new List<Packetiser>();
+            codecs = new List<Codec>();
             listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 54540);
             listener.Start();
             portID_Counter = 0;
-            this.commands = commandInterface;
-            codec = new Codec(commands);
+            this.realm = realmInterface;
         }
 
         ~SocketManager(){
@@ -22,8 +22,8 @@ namespace ports {
         public List<TCPSocket> sockets { get; private set; }
         public List<Packetiser> packetisers {get; private set;}
 
-        private ICommand commands;
-        private Codec codec;
+        public List<Codec> codecs {get ; private set;}
+        private IRealm realm;
         private TcpListener listener;
         private int portID_Counter;
 
@@ -59,11 +59,14 @@ namespace ports {
         }
 
         private void createNewStack(TcpClient client, int portID){
-            Packetiser newPacketiser = new Packetiser(codec, "\r\n");
+            ICommand user = realm.AddUser();
+            Codec newCodec = new Codec(user);
+            Packetiser newPacketiser = new Packetiser(newCodec, "\r\n");
             TCPSocket newSocket = new TCPSocket(client, newPacketiser);
 
             packetisers.Add(newPacketiser);
             sockets.Add(newSocket);
+            codecs.Add(newCodec);
         }
 
         private void makePendingConnections() {

@@ -2,5 +2,9 @@
 
 # Run all the tests
 
-cd ports.tests
-dotnet test
+pushd `pwd`
+for x in `ls -d *.tests`; do
+    cd $x
+    dotnet test
+done;
+
