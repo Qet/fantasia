@@ -7,9 +7,6 @@ using ports;
 
 namespace server
 {
-    public class DummyCommandHandler : ICommand{
-        public void move(Directions directions){ Console.WriteLine("Moving: " + directions.ToString());}
-    }
 
     class Program
     {
